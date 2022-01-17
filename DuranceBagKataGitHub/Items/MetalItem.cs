@@ -10,7 +10,7 @@ namespace DuranceBagKataGitHub.Items
     {
         public MetalItem()
         {
-            Category = Category.Metal;
+            Category = ItemCategory.Metal;
         }
     }
 }

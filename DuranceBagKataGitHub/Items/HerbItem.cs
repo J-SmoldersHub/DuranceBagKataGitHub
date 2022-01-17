@@ -4,7 +4,7 @@
     {
         public HerbItem()
         {
-            Category = Category.Herbs;
+            Category = ItemCategory.Herbs;
         }
     }
 }

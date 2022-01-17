@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DuranceBagKataGitHub.Bags;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuranceBagKataGitHub
@@ -12,16 +14,9 @@ namespace DuranceBagKataGitHub
             AddBags();
         }
 
-        private void AddBags()
+        public void Find(Item item)
         {
-            Bags.AddRange(new List<Bag>
-                {
-                    new Backpack(),
-                    new IronBag(),
-                    new NormalBag(),
-                    new WeaponsBag(),
-                    new NormalBag()
-                });
+            AddItemDependingOnBagOrder(item);
         }
 
         public void Organize()
@@ -33,11 +28,14 @@ namespace DuranceBagKataGitHub
                 bag.Items.Clear();
             }
 
-            items.OrderBy(x => x.ItemName);
+            items = items.OrderBy(x => x.ItemName).ToList();
 
             foreach (var item in items)
             {
-                bool itemAdded = HasItemBeenAddedInCategorizedBag(item, item.Category);
+                bool itemAdded = HasItemBeenAddedInCategorizedBag(
+                    item,
+                    ConvertToBagCategory(item.Category)
+                    );
 
                 if (!itemAdded)
                 {
@@ -46,9 +44,18 @@ namespace DuranceBagKataGitHub
             }
         }
 
-        public void Find(Item item)
+        public void DisplayItems()
         {
-            AddItemDependingOnBagOrder(item);
+            foreach (var bag in Bags)
+            {
+                Console.WriteLine(bag.BagName + ": ");
+                foreach(var item in bag.Items)
+                {
+                    Console.WriteLine($"- {item.ItemName}");
+                }
+
+                Console.WriteLine();
+            }
         }
 
         private void AddItemDependingOnBagOrder(Item item)
@@ -63,9 +70,40 @@ namespace DuranceBagKataGitHub
             }
         }
 
-        private bool HasItemBeenAddedInCategorizedBag(Item item, Category category)
+        private void AddBags()
         {
-            var categorizedBags = Bags.Where(x => x.Category == category).ToList();
+            Bags.AddRange(new List<Bag>
+                {
+                    new Backpack(),
+                    new IronBag(),
+                    new NormalBag(),
+                    new WeaponsBag(),
+                    new ClothingBag()
+                });
+        }
+
+        private BagCategory ConvertToBagCategory(ItemCategory category)
+        {
+            switch (category)
+            {
+                case ItemCategory.None:
+                    return BagCategory.None;
+                case ItemCategory.Clothing:
+                    return BagCategory.Clothing;
+                case ItemCategory.Metal:
+                    return BagCategory.Metal;
+                case ItemCategory.Herbs:
+                    return BagCategory.Herbs;
+                case ItemCategory.Weapons:
+                    return BagCategory.Weapons;
+                default:
+                    return BagCategory.None;
+            }
+        }
+
+        private bool HasItemBeenAddedInCategorizedBag(Item item, BagCategory category)
+        {
+            var categorizedBags = Bags.Where(x => x.BagCategory == category).ToList();
             foreach (var categorizedBag in categorizedBags)
             {
                 if (categorizedBag.Items.Count < categorizedBag.Size)

@@ -19,7 +19,7 @@ namespace DuranceBagKataGitHubTests
 
             // Assert
             Assert.Equal(2, d.Bags
-                .Where(x => x.Category == Category.Backpack)
+                .Where(x => x.BagCategory == BagCategory.Backpack)
                 .Single().Items.Count);
         }
 
@@ -34,14 +34,14 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Copper());
             d.Organize();
 
-            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).First();
+            var metalBag = d.Bags.Where(x => x.BagCategory == BagCategory.Metal).First();
 
             // Assert
             Assert.Equal(2, metalBag.Items.Count);
         }
 
         [Fact]
-        public void OrganizeMetalsAndOnePieceOfClothing()
+        public void OrganizeMetalsAndOnePieceOfHerbs()
         {
             // Arrange
             var d = new Durance();
@@ -49,14 +49,15 @@ namespace DuranceBagKataGitHubTests
             // Act
             d.Find(new Iron());
             d.Find(new Copper());
-            d.Find(new Silk());
+            d.Find(new Marigold());
             d.Organize();
 
-            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).First();
+            var backpack = d.Bags.Where(x => x.BagCategory == BagCategory.Backpack).Single();
+            var metalBag = d.Bags.Where(x => x.BagCategory == BagCategory.Metal).First();
 
             // Assert
             Assert.Equal(2, metalBag.Items.Count);
-            Assert.Single(d.Bags.Where(x => x.Category == Category.Backpack).Single().Items);
+            Assert.Single(d.Bags.Where(x => x.BagCategory == BagCategory.Backpack).Single().Items);
         }
 
         [Fact]
@@ -100,11 +101,15 @@ namespace DuranceBagKataGitHubTests
 
             d.Organize();
 
-            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).Single();
+            var backpack = d.Bags[0];
+            var metalBag = d.Bags.Where(x => x.BagCategory == BagCategory.Metal).Single();
+            var weaponBag = d.Bags.Where(x => x.BagCategory == BagCategory.Weapons).Single();
 
             // Assert
+            Assert.Equal(4, backpack.Items.Count);
             Assert.Equal(4, metalBag.Items.Count);
-            Assert.Contains(metalBag.Items, y => y.ItemName == "Sword");
+            Assert.Single(weaponBag.Items);
+            Assert.False(metalBag.Items.Any(x => x.ItemName == "Iron"));
         }
 
         [Fact]
@@ -141,11 +146,12 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Copper());
             d.Find(new Iron());
 
-            var rose = new Rose();
-            d.Find(rose);
+            d.Find(new Rose());
+
+            var backpack = d.Bags[0];
 
             // Assert
-            Assert.Equal(8, d.Bags[0].Items.Count); // backpack
+            Assert.Equal(8, backpack.Items.Count); // backpack
             Assert.Equal(4, d.Bags[1].Items.Count);
             Assert.Equal(4, d.Bags[2].Items.Count);
             Assert.Equal(4, d.Bags[3].Items.Count);

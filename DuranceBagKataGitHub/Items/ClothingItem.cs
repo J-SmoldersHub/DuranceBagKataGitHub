@@ -4,7 +4,7 @@
     {
         public ClothingItem()
         {
-            Category = Category.Clothing;
+            Category = ItemCategory.Clothing;
         }
     }
 }

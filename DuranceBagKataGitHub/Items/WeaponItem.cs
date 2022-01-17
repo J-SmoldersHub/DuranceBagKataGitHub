@@ -4,7 +4,7 @@
     {
         public WeaponItem()
         {
-            Category = Category.Weapons;
+            Category = ItemCategory.Weapons;
         }
     }
 }
