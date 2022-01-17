@@ -42,28 +42,21 @@ namespace DuranceBagKataGitHub
 
             foreach (var item in items)
             {
-                bool itemAdded = false;
-                if (item.Category == Category.Metal)
-                {
-                    var metalBags = Bags.Where(x => x.Category == Category.Metal).ToList();
-                    foreach (var metalBag in metalBags)
-                    {
-                        if (metalBag.Items.Count < metalBag.Size)
-                        {
-                            metalBag.Items.Add(item);
-                            itemAdded = true;
-                        }
-                    }
-                }
+                bool itemAdded = HasItemBeenAddedInCategorizedBag(item, item.Category);
 
                 if (!itemAdded)
                 {
-                    Backpack.Items.Add(item);
+                    AddItemDependingOnBagOrder(item);
                 }
             }
         }
 
         public void Find(Item item)
+        {
+            AddItemDependingOnBagOrder(item);
+        }
+
+        private void AddItemDependingOnBagOrder(Item item)
         {
             if (Backpack.Items.Count < Backpack.Size)
             {
@@ -76,10 +69,24 @@ namespace DuranceBagKataGitHub
                     if (bag.Items.Count < bag.Size)
                     {
                         bag.Items.Add(item);
-                        continue;
                     }
                 }
             }
+        }
+
+        private bool HasItemBeenAddedInCategorizedBag(Item item, Category category)
+        {
+            var categorizedBags = Bags.Where(x => x.Category == category).ToList();
+            foreach (var categorizedBag in categorizedBags)
+            {
+                if (categorizedBag.Items.Count < categorizedBag.Size)
+                {
+                    categorizedBag.Items.Add(item);
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
