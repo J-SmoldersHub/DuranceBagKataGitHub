@@ -33,10 +33,29 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Copper());
             d.Organize();
 
-            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).Single();
+            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).First();
 
             // Assert
             Assert.Equal(2, metalBag.Items.Count);
+        }
+
+        [Fact]
+        public void OrganizeMetalsAndOnePieceOfClothing()
+        {
+            // Arrange
+            var d = new Durance();
+
+            // Act
+            d.Find(new Iron());
+            d.Find(new Copper());
+            d.Find(new Silk());
+            d.Organize();
+
+            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).First();
+
+            // Assert
+            Assert.Equal(2, metalBag.Items.Count);
+            Assert.Single(d.Backpack.Items);
         }
 
         [Fact]
