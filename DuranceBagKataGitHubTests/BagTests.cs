@@ -40,6 +40,7 @@ namespace DuranceBagKataGitHubTests
 
             // Assert
             Assert.Equal(8, d.Backpack.Items.Count);
+            Assert.Single(d.Bags[0].Items);
         }
     }
 }
