@@ -18,16 +18,14 @@ namespace DuranceBagKataGitHub
             Bags.AddRange(new List<Bag>
                 {
                     new IronBag(),
-                    new Bag(),
+                    new NormalBag(),
                     new WeaponsBag(),
-                    new Bag()
+                    new NormalBag()
                 });
         }
 
         public void Find(Item item)
         {
-            var bagIndex = 0;
-
             if (Backpack.Items.Count < Backpack.Size)
             {
                 Backpack.Items.Add(item);
@@ -38,8 +36,8 @@ namespace DuranceBagKataGitHub
                 {
                     if (bag.Items.Count < bag.Size)
                     {
-                        Bags[bagIndex].Items.Add(item);
-                        break;
+                        bag.Items.Add(item);
+                        continue;
                     }
                 }
             }
