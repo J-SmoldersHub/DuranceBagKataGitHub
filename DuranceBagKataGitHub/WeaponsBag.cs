@@ -5,6 +5,7 @@
         public WeaponsBag()
         {
             Size = 4;
+            Category = Category.Weapons;
         }
     }
 }

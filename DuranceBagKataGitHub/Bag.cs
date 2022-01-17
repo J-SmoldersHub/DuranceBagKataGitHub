@@ -7,5 +7,6 @@ namespace DuranceBagKataGitHub
         public int Size { get; set; }
 
         public List<Item> Items = new List<Item>();
+        public Category Category;
     }
 }
