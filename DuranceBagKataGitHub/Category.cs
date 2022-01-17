@@ -2,9 +2,10 @@
 {
     public enum Category
     {
-        Clothing = 1,
-        Metal = 2,
-        Herbs = 3,
-        Weapons = 4
+        Backpack = 1,
+        Clothing = 2,
+        Metal = 3,
+        Herbs = 4,
+        Weapons = 5
     }
 }

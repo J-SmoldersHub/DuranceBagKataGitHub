@@ -4,6 +4,7 @@
     {
         public Backpack()
         {
+            Category = Category.Backpack;
             Size = 8;
         }
     }

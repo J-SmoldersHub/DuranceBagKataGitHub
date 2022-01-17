@@ -1,6 +1,5 @@
 using DuranceBagKataGitHub;
 using DuranceBagKataGitHub.Items;
-using System;
 using Xunit;
 using System.Linq;
 
@@ -19,7 +18,9 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Copper());
 
             // Assert
-            Assert.Equal(2, d.Backpack.Items.Count);
+            Assert.Equal(2, d.Bags
+                .Where(x => x.Category == Category.Backpack)
+                .Single().Items.Count);
         }
 
         [Fact]
@@ -55,7 +56,7 @@ namespace DuranceBagKataGitHubTests
 
             // Assert
             Assert.Equal(2, metalBag.Items.Count);
-            Assert.Single(d.Backpack.Items);
+            Assert.Single(d.Bags.Where(x => x.Category == Category.Backpack).Single().Items);
         }
 
         [Fact]
@@ -76,8 +77,8 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Copper());
 
             // Assert
-            Assert.Equal(8, d.Backpack.Items.Count);
-            Assert.Single(d.Bags[0].Items);
+            Assert.Equal(8, d.Bags[0].Items.Count);
+            Assert.Single(d.Bags[1].Items);
         }
 
         [Fact]
@@ -118,11 +119,11 @@ namespace DuranceBagKataGitHubTests
             d.Find(rose);
 
             // Assert
-            Assert.Equal(8, d.Backpack.Items.Count);
-            Assert.Equal(4, d.Bags[0].Items.Count);
+            Assert.Equal(8, d.Bags[0].Items.Count); // backpack
             Assert.Equal(4, d.Bags[1].Items.Count);
             Assert.Equal(4, d.Bags[2].Items.Count);
             Assert.Equal(4, d.Bags[3].Items.Count);
+            Assert.Equal(4, d.Bags[4].Items.Count);
 
             Assert.True(d.Bags.Where(x => x.Items.Any(y => y.ItemName == "Sword")).Any());
             Assert.False(d.Bags.Where(x => x.Items.Any(y => y.ItemName == "Rose")).Any());

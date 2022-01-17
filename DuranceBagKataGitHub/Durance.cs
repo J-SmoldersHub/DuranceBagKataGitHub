@@ -5,12 +5,10 @@ namespace DuranceBagKataGitHub
 {
     public class Durance
     {
-        public Backpack Backpack { get; set; }
         public List<Bag> Bags { get; set; } = new List<Bag>();
 
         public Durance()
         {
-            Backpack = new Backpack();
             AddBags();
         }
 
@@ -18,6 +16,7 @@ namespace DuranceBagKataGitHub
         {
             Bags.AddRange(new List<Bag>
                 {
+                    new Backpack(),
                     new IronBag(),
                     new NormalBag(),
                     new WeaponsBag(),
@@ -28,10 +27,6 @@ namespace DuranceBagKataGitHub
         public void Organize()
         {
             List<Item> items = new List<Item>();
-
-            items.AddRange(Backpack.Items);
-            Backpack.Items.Clear();
-
             foreach(var bag in Bags)
             {
                 items.AddRange(bag.Items);
@@ -58,18 +53,12 @@ namespace DuranceBagKataGitHub
 
         private void AddItemDependingOnBagOrder(Item item)
         {
-            if (Backpack.Items.Count < Backpack.Size)
+            foreach (var bag in Bags)
             {
-                Backpack.Items.Add(item);
-            }
-            else
-            {
-                foreach (var bag in Bags)
+                if (bag.Items.Count < bag.Size)
                 {
-                    if (bag.Items.Count < bag.Size)
-                    {
-                        bag.Items.Add(item);
-                    }
+                    bag.Items.Add(item);
+                    break;
                 }
             }
         }
