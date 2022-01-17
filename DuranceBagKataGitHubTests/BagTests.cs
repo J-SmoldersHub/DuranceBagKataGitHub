@@ -88,7 +88,8 @@ namespace DuranceBagKataGitHubTests
             Assert.Equal(4, d.Bags[2].Items.Count);
             Assert.Equal(4, d.Bags[3].Items.Count);
 
-            Assert.True(d.Bags.Where(x => x.Items.Any(y => y.ItemName == "Rose")).Any());
+            Assert.True(d.Bags.Where(x => x.Items.Any(y => y.ItemName == "Sword")).Any());
+            Assert.False(d.Bags.Where(x => x.Items.Any(y => y.ItemName == "Rose")).Any());
         }
     }
 }
