@@ -26,7 +26,23 @@ namespace DuranceBagKataGitHub
 
         public void Find(Item item)
         {
-            Backpack.Items.Add(item);
+            var bagIndex = 0;
+
+            if (Backpack.Items.Count < Backpack.Size)
+            {
+                Backpack.Items.Add(item);
+            }
+            else
+            {
+                foreach (var bag in Bags)
+                {
+                    if (bag.Items.Count < bag.Size)
+                    {
+                        Bags[bagIndex].Items.Add(item);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
