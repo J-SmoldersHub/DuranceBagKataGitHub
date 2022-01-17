@@ -82,6 +82,32 @@ namespace DuranceBagKataGitHubTests
         }
 
         [Fact]
+        public void OrganizeTooMuchMetal()
+        {
+            // Arrange
+            var d = new Durance();
+
+            // Act
+            d.Find(new Iron());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Sword());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Iron());
+            d.Find(new Copper());
+
+            d.Organize();
+
+            var metalBag = d.Bags.Where(x => x.Category == Category.Metal).Single();
+
+            // Assert
+            Assert.Equal(4, metalBag.Items.Count);
+            Assert.Contains(metalBag.Items, y => y.ItemName == "Sword");
+        }
+
+        [Fact]
         public void TotallyFillBags()
         {
             // Arrange
