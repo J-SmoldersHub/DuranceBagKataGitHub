@@ -5,10 +5,11 @@ namespace DuranceBagKataGitHub
     public class Durance
     {
         public Backpack Backpack { get; set; }
-        public List<Bag> Bags { get; set; }
+        public List<Bag> Bags { get; set; } = new List<Bag>();
 
         public Durance()
         {
+            Backpack = new Backpack();
             AddBags();
         }
 
