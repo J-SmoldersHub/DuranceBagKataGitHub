@@ -31,7 +31,7 @@ namespace DuranceBagKataGitHubTests
             d.Find(new Iron());
             d.Find(new Copper());
             d.Find(new Copper());
-            d.Find(new Copper());
+            d.Find(new Sword());
             d.Find(new Copper());
             d.Find(new Copper());
             d.Find(new Copper());
@@ -41,6 +41,50 @@ namespace DuranceBagKataGitHubTests
             // Assert
             Assert.Equal(8, d.Backpack.Items.Count);
             Assert.Single(d.Bags[0].Items);
+        }
+
+        [Fact]
+        public void TotallyFillBags()
+        {
+            // Arrange
+            var d = new Durance();
+
+            // Act
+            d.Find(new Iron());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Sword());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Iron());
+
+            d.Find(new Iron());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Sword());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Iron());
+
+            d.Find(new Iron());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Sword());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Copper());
+            d.Find(new Iron());
+
+            d.Find(new Rose());
+
+            // Assert
+            Assert.Equal(8, d.Backpack.Items.Count);
+            Assert.Equal(4, d.Bags[0].Items.Count);
+            Assert.Equal(4, d.Bags[1].Items.Count);
+            Assert.Equal(4, d.Bags[2].Items.Count);
+            Assert.Equal(4, d.Bags[3].Items.Count);
         }
     }
 }

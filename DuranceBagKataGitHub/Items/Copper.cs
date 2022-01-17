@@ -2,5 +2,9 @@
 {
     public class Copper : MetalItem
     {
+        public Copper()
+        {
+            ItemName = "Copper";
+        }
     }
 }

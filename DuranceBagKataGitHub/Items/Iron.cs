@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DuranceBagKataGitHub.Items
+﻿namespace DuranceBagKataGitHub.Items
 {
     public class Iron : MetalItem
     {
+        public Iron()
+        {
+            ItemName = "Iron";
+        }
     }
 }
